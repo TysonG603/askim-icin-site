@@ -128,6 +128,17 @@ h2 {
     }
 }
 
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px); /* Hafifçe alttan geliyormuş gibi başla */
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 @keyframes renk-degisimi {
     0% {
         color: var(--pink-dark);
@@ -231,4 +242,5 @@ h2 {
 }
 
 }
+
 
