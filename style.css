@@ -21,6 +21,12 @@ body {
     align-items: center;
     min-height: 100vh;
     overflow-x: hidden;
+    /* Arka Plan Kalp Yağmuru (Hafif Görünür) */
+    background-image: radial-gradient(var(--pink-medium) 15%, transparent 16%),
+                      radial-gradient(var(--pink-medium) 15%, transparent 16%);
+    background-size: 20px 20px;
+    background-position: 0 0, 10px 10px;
+    animation: hearts-fall 30s linear infinite;
 }
 
 /* ======================================== */
@@ -32,22 +38,26 @@ body {
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(233, 30, 99, 0.2);
     max-width: 800px;
-    width: 90%; /* Responsive uyum için ekledik */
+    width: 90%;
     margin: 20px;
     position: relative;
-    /* GÖLGE ANİMASYONU UYGULANDI */
+    /* GÖLGE ANİMASYONU (NABIZ ATIŞI) */
     animation: nabiz-atisi 4s infinite ease-in-out; 
 }
 
-h1,
-h2 {
+h1, h2 {
     color: var(--pink-dark);
 }
 
+/* Başlık Yazı Animasyonu */
+.container h1 {
+    animation: renk-degisimi 5s infinite alternate;
+    font-size: 2.5em;
+}
+
 /* ======================================== */
-/* 3. GİRİŞ EKRANI VE BUTON */
+/* 3. GİRİŞ EKRANI, BUTON VE FADE-IN STİLİ */
 /* ======================================== */
-/* Not: #girisEkrani label seçicisi HTML'de yok. Yerine doğrudan container altındaki label'ı seçtik. */
 .container label { 
     display: block;
     margin-bottom: 10px;
@@ -83,15 +93,15 @@ h2 {
     transform: translateY(-2px);
 }
 
-/* ======================================== */
-/* 4. FOTOĞRAF ALBÜMÜ STİLİ */
-/* ======================================== */
+/* Albümün başlangıç stilini (JS ile kontrol edilecek) */
 #fotografAlbumu {
     display: none;
-    /* Fade-in animasyonu için başlangıçta opaklığı ayarla */
-    opacity: 0; 
+    opacity: 0; /* Fade-in için başlangıç opaklığı */
 }
 
+/* ======================================== */
+/* 4. FOTOĞRAF ALBÜMÜ VE HOVER EFEKTİ */
+/* ======================================== */
 .fotolar {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -106,7 +116,7 @@ h2 {
     border: 5px solid var(--pink-medium);
     object-fit: cover;
     aspect-ratio: 1 / 1;
-    transition: all 0.3s; /* Hover efekti için değiştirildi */
+    transition: all 0.3s; /* Hover için yumuşak geçiş */
 }
 
 .fotolar img:hover {
@@ -138,16 +148,29 @@ h2 {
 }
 
 /* ======================================== */
-/* 6. KEYFRAMES ANİMASYONLARI */
+/* 6. İMLEÇ/DOKUNMA TAKİBİ (Çiçek/Kalp İzi) */
+/* ======================================== */
+.imlec-kalbi {
+    position: absolute;
+    color: var(--pink-dark); 
+    font-size: 15px;
+    pointer-events: none; 
+    transform: translate(-50%, -50%); 
+    opacity: 0.8;
+    animation: fade-up 1s ease-out forwards;
+    z-index: 9999; 
+}
+.imlec-kalbi::before {
+    content: '🌸'; /* Kalp veya çiçek simgesi */
+}
+
+/* ======================================== */
+/* 7. KEYFRAMES (ANİMASYON TANIMLARI) */
 /* ======================================== */
 
 @keyframes bounce {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-15px);
-    }
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
 }
 
 @keyframes fade-in {
@@ -162,23 +185,14 @@ h2 {
 }
 
 @keyframes renk-degisimi {
-    0% {
-        color: var(--pink-dark);
-    }
-    33% {
-        color: #ff69b4;
-    }
-    66% {
-        color: #ffeb3b;
-    }
-    100% {
-        color: var(--pink-dark);
-    }
+    0% { color: var(--pink-dark); }
+    33% { color: #ff69b4; }
+    66% { color: #ffeb3b; }
+    100% { color: var(--pink-dark); }
 }
 
 @keyframes nabiz-atisi {
     0%, 100% {
-        /* Hata Düzeltildi: RGBA değeri tam girildi */
         box-shadow: 0 10px 30px rgba(233, 30, 99, 0.2); 
     }
     50% {
@@ -186,14 +200,24 @@ h2 {
     }
 }
 
-/* Başlık Animasyon Uygulaması */
-.container h1 {
-    animation: renk-degisimi 5s infinite alternate;
-    font-size: 2.5em;
+@keyframes hearts-fall {
+    from { background-position: 0 0; }
+    to { background-position: 0 1000px; } 
+}
+
+@keyframes fade-up {
+    0% {
+        opacity: 0.8;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    100% {
+        opacity: 0;
+        transform: translate(-50%, -100%) scale(1.5);
+    }
 }
 
 /* ======================================== */
-/* 7. MÜKEMMEL TELEFON UYUMLULUĞU (RESPONSIVE) */
+/* 8. MÜKEMMEL TELEFON UYUMLULUĞU (RESPONSIVE) */
 /* ======================================== */
 
 @media (max-width: 768px) {
@@ -213,7 +237,7 @@ h2 {
 
     /* 2. Başlık ve Metinleri Küçültme */
     h1 {
-        font-size: 1.8em !important; /* Başlık animasyonu ile çakışmasın diye !important eklendi */
+        font-size: 1.8em !important;
     }
     p {
         font-size: 0.9em;
@@ -221,17 +245,17 @@ h2 {
 
     /* 3. Hello Kitty Dekorasyonunu Küçültme ve Konumlandırma */
     .hello-kitty-dekor {
-        width: 70px;
+        width: 70px; /* Görseller küçültüldü */
     }
     #hk-sol {
-        left: -70px;
+        left: -70px; /* Yeni genişliğe göre sola it */
     }
     #hk-sag {
-        right: -70px;
+        right: -70px; /* Yeni genişliğe göre sağa it */
     }
     
     /* 4. Tarih ve Butonu Alt Alta Ortala (Kusursuz Görünüm) */
-    .container input[type="date"], /* HTML'e uygun seçici kullanıldı */
+    .container input[type="date"],
     #kontrolButonu {
         display: block;
         width: 85%;
@@ -245,5 +269,10 @@ h2 {
     /* 5. Fotoğraf Albümünü Tek Sütun Yapma */
     .fotolar {
         grid-template-columns: 1fr;
+    }
+    
+    /* 6. Dokunmatik Kalp İzini Telefonda Büyütme */
+    .imlec-kalbi {
+        font-size: 24px; /* Telefonda daha belirgin olsun */
     }
 }
