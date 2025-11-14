@@ -1,3 +1,6 @@
+/* ======================================== */
+/* 1. RENK DEĞİŞKENLERİ VE GENEL STİL */
+/* ======================================== */
 :root {
     --pink-light: #fce4ec;
     --pink-medium: #f8bbd0;
@@ -20,15 +23,20 @@ body {
     overflow-x: hidden;
 }
 
+/* ======================================== */
+/* 2. ANA KUTU VE BAŞLIKLAR */
+/* ======================================== */
 .container {
     background-color: var(--white-soft);
     padding: 40px 30px;
     border-radius: 20px;
     box-shadow: 0 10px 30px rgba(233, 30, 99, 0.2);
     max-width: 800px;
+    width: 90%; /* Responsive uyum için ekledik */
     margin: 20px;
     position: relative;
-    animation: nabiz-atisi 4s infinite ease-in-out;
+    /* GÖLGE ANİMASYONU UYGULANDI */
+    animation: nabiz-atisi 4s infinite ease-in-out; 
 }
 
 h1,
@@ -36,14 +44,18 @@ h2 {
     color: var(--pink-dark);
 }
 
-#girisEkrani label {
+/* ======================================== */
+/* 3. GİRİŞ EKRANI VE BUTON */
+/* ======================================== */
+/* Not: #girisEkrani label seçicisi HTML'de yok. Yerine doğrudan container altındaki label'ı seçtik. */
+.container label { 
     display: block;
     margin-bottom: 10px;
     font-size: 1.2em;
     font-weight: bold;
 }
 
-#girisEkrani input[type="date"] {
+.container input[type="date"] {
     padding: 10px;
     border: 3px solid var(--pink-medium);
     border-radius: 10px;
@@ -71,8 +83,13 @@ h2 {
     transform: translateY(-2px);
 }
 
+/* ======================================== */
+/* 4. FOTOĞRAF ALBÜMÜ STİLİ */
+/* ======================================== */
 #fotografAlbumu {
     display: none;
+    /* Fade-in animasyonu için başlangıçta opaklığı ayarla */
+    opacity: 0; 
 }
 
 .fotolar {
@@ -89,13 +106,17 @@ h2 {
     border: 5px solid var(--pink-medium);
     object-fit: cover;
     aspect-ratio: 1 / 1;
-    transition: transform 0.3s;
+    transition: all 0.3s; /* Hover efekti için değiştirildi */
 }
 
 .fotolar img:hover {
     transform: scale(1.05) rotate(1deg);
+    box-shadow: 0 0 20px var(--pink-dark); /* Parlama efekti */
 }
 
+/* ======================================== */
+/* 5. HELLO KITTY DEKORASYON */
+/* ======================================== */
 .hello-kitty-dekor {
     position: absolute;
     width: 100px;
@@ -116,13 +137,14 @@ h2 {
     animation-delay: 1.5s;
 }
 
-@keyframes bounce {
+/* ======================================== */
+/* 6. KEYFRAMES ANİMASYONLARI */
+/* ======================================== */
 
-    0%,
-    100% {
+@keyframes bounce {
+    0%, 100% {
         transform: translateY(0);
     }
-
     50% {
         transform: translateY(-15px);
     }
@@ -131,7 +153,7 @@ h2 {
 @keyframes fade-in {
     from {
         opacity: 0;
-        transform: translateY(20px); /* Hafifçe alttan geliyormuş gibi başla */
+        transform: translateY(20px);
     }
     to {
         opacity: 1;
@@ -143,57 +165,42 @@ h2 {
     0% {
         color: var(--pink-dark);
     }
-
     33% {
         color: #ff69b4;
     }
-
     66% {
         color: #ffeb3b;
     }
-
     100% {
         color: var(--pink-dark);
     }
 }
 
-.container h1 {
-    animation: renk-degisimi 5s infinite alternate;
-    font-size: 2.5em;
-}
-
 @keyframes nabiz-atisi {
-
-    0%,
-    100% {
-        box-shadow: 0 10px 30px rgba(233, 30, 99, 0, 2);
+    0%, 100% {
+        /* Hata Düzeltildi: RGBA değeri tam girildi */
+        box-shadow: 0 10px 30px rgba(233, 30, 99, 0.2); 
     }
-
     50% {
         box-shadow: 0 10px 45px rgba(233, 30, 99, 0.6);
     }
 }
 
-@keyframes float {
-    0%, 100% {
-        transform: translateY(0);
-    }
-    50% {
-        transform: translateY(-20px); /* 20 piksel yukarı salınım */
-    }
+/* Başlık Animasyon Uygulaması */
+.container h1 {
+    animation: renk-degisimi 5s infinite alternate;
+    font-size: 2.5em;
 }
 
-@media (max-width: 768px) {
-
 /* ======================================== */
-/* MÜKEMMEL TELEFON UYUMLULUĞU (RESPONSIVE) */
+/* 7. MÜKEMMEL TELEFON UYUMLULUĞU (RESPONSIVE) */
 /* ======================================== */
 
 @media (max-width: 768px) {
 
     /* 1. Body ve Ana Kutu Düzenlemesi */
     body {
-        align-items: flex-start; /* Dikey ortalamayı kapat, içeriği yukarı al */
+        align-items: flex-start;
         padding-top: 50px;
     }
     .container {
@@ -201,12 +208,12 @@ h2 {
         max-width: 90%;
         margin-left: auto;
         margin-right: auto;
-        padding: 30px 15px; /* Yanlardan boşluğu azalt */
+        padding: 30px 15px;
     }
 
     /* 2. Başlık ve Metinleri Küçültme */
     h1 {
-        font-size: 1.8em; 
+        font-size: 1.8em !important; /* Başlık animasyonu ile çakışmasın diye !important eklendi */
     }
     p {
         font-size: 0.9em;
@@ -214,33 +221,29 @@ h2 {
 
     /* 3. Hello Kitty Dekorasyonunu Küçültme ve Konumlandırma */
     .hello-kitty-dekor {
-        width: 70px; /* Görselleri küçült */
+        width: 70px;
     }
     #hk-sol {
-        left: -70px; /* Yeni genişliğe göre sola it */
+        left: -70px;
     }
     #hk-sag {
-        right: -70px; /* Yeni genişliğe göre sağa it */
+        right: -70px;
     }
     
-    /* 4. Tarih ve Butonu Alt Alta Ortala (Kusursuz Görünüm İçin) */
-    #sevgiliTarihi,
+    /* 4. Tarih ve Butonu Alt Alta Ortala (Kusursuz Görünüm) */
+    .container input[type="date"], /* HTML'e uygun seçici kullanıldı */
     #kontrolButonu {
-        display: block; /* Alt alta gelsinler */
-        width: 85%; /* Ekranın %85'ini kaplasın */
+        display: block;
+        width: 85%;
         margin-left: auto;
-        margin-right: auto; /* Yatayda ortalama */
+        margin-right: auto;
     }
     #kontrolButonu {
-        margin-top: 15px; /* Butonun üstüne boşluk */
+        margin-top: 15px;
     }
 
     /* 5. Fotoğraf Albümünü Tek Sütun Yapma */
     .fotolar {
-        grid-template-columns: 1fr; /* Tüm fotoğraflar alt alta tek sütunda görünür */
+        grid-template-columns: 1fr;
     }
 }
-
-}
-
-
