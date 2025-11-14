@@ -174,51 +174,61 @@ h2 {
 
 @media (max-width: 768px) {
 
-    .container{
-        text-align: center;
-    }
+/* ======================================== */
+/* MÜKEMMEL TELEFON UYUMLULUĞU (RESPONSIVE) */
+/* ======================================== */
 
-    #girisEkrani input[type='date'],
-    #kontrolButonu{
-        display: block;
+@media (max-width: 768px) {
+
+    /* 1. Body ve Ana Kutu Düzenlemesi */
+    body {
+        align-items: flex-start; /* Dikey ortalamayı kapat, içeriği yukarı al */
+        padding-top: 50px;
+    }
+    .container {
+        width: 90%;
+        max-width: 90%;
         margin-left: auto;
         margin-right: auto;
-        width: 80%;
-        box-sizing: border-box;
+        padding: 30px 15px; /* Yanlardan boşluğu azalt */
     }
 
-    #kontrolButonu{
-        margin-top: 15px;
-    }
-
-    .hello-kitty-dekor {
-        width: 65px;
-    }
-
-    #hk-sol {
-        left: -65px;
-    }
-
-    #hk-sag {
-        right: -65px;
-    }
-
+    /* 2. Başlık ve Metinleri Küçültme */
     h1 {
-        font-size: 1.8em !important;
+        font-size: 1.8em; 
     }
-
-    .container p {
+    p {
         font-size: 0.9em;
     }
 
-    body {
-        align-items: flex-start;
-
-        padding-top: 50px;
+    /* 3. Hello Kitty Dekorasyonunu Küçültme ve Konumlandırma */
+    .hello-kitty-dekor {
+        width: 70px; /* Görselleri küçült */
+    }
+    #hk-sol {
+        left: -70px; /* Yeni genişliğe göre sola it */
+    }
+    #hk-sag {
+        right: -70px; /* Yeni genişliğe göre sağa it */
+    }
+    
+    /* 4. Tarih ve Butonu Alt Alta Ortala (Kusursuz Görünüm İçin) */
+    #sevgiliTarihi,
+    #kontrolButonu {
+        display: block; /* Alt alta gelsinler */
+        width: 85%; /* Ekranın %85'ini kaplasın */
+        margin-left: auto;
+        margin-right: auto; /* Yatayda ortalama */
+    }
+    #kontrolButonu {
+        margin-top: 15px; /* Butonun üstüne boşluk */
     }
 
+    /* 5. Fotoğraf Albümünü Tek Sütun Yapma */
     .fotolar {
-        grid-template-columns: 1fr;
+        grid-template-columns: 1fr; /* Tüm fotoğraflar alt alta tek sütunda görünür */
     }
+}
 
 }
+
